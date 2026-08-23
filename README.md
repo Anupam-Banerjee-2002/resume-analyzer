@@ -115,4 +115,3 @@ curl -i -b cookies.txt -L "http://127.0.0.1:5000/resumes/<ID>/download" -o downl
 - `GET /admin/shortlisted`
 - `GET /admin/shortlisted/export/csv|excel|json`
 - `GET/POST/DELETE /admin/keywords...` (now HR/ADMIN role-based)
-
