@@ -72,10 +72,15 @@ app.config.update(
     SESSION_COOKIE_SECURE     = False,          # set True in production with HTTPS
     PERMANENT_SESSION_LIFETIME= timedelta(hours=8),
 )
-CORS(app, supports_credentials=True, origins=["http://127.0.0.1:5500",
-                                               "http://localhost:5500",
-                                               "http://127.0.0.1:5000",
-                                               "null"])
+CORS(app, supports_credentials=True, origins=[
+    "http://127.0.0.1:5500",
+    "http://localhost:5500",
+    "http://127.0.0.1:8000",
+    "http://localhost:8000",
+    "http://127.0.0.1:5000",
+    "http://localhost:5000",
+    "null",
+])
 
 # ── DB INIT ───────────────────────────────────────────────────────────────────
 init_db()
@@ -1856,7 +1861,7 @@ def stats():
 
 @app.route("/")
 def home():
-    return "Smart Resume Screening System v3 — Flask API ✅ | IILM University 2025-2026"
+    return send_file(os.path.join(app.root_path, "INDEX.html"))
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

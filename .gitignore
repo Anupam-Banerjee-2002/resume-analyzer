@@ -7,3 +7,7 @@ __pycache__/
 .pytest_cache/
 .DS_Store
 Thumbs.db
+app.db
+uploads/resumes/*
+server.log
+server.error.log

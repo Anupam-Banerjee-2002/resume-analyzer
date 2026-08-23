@@ -1,6 +1,6 @@
-# Smart Resume Screening System (Flask)
+# IILM CareerReady — Resume Analyzer
 
-This project is a Flask backend for resume parsing + ML-based department prediction, now with **session-based role access** and **SQLite persistence**.
+IILM CareerReady is a student-focused resume analysis platform for IILM University. Students can upload a PDF or DOCX resume to receive career-direction guidance, extracted skills, education and experience insights, and a relevance score. The Flask backend also provides role-based tools for HR, HOD, and ADMIN users.
 
 ## Custom model (this build)
 
@@ -39,9 +39,12 @@ Keyword lists for keyword-scoring (`/keywords`) were also updated to match the n
 python app.py
 ```
 
-- **API base**: `http://127.0.0.1:5000`
+- **Website and API**: `http://127.0.0.1:5000` (the Flask root serves `INDEX.html`)
+- **Optional static UI**: `http://127.0.0.1:8000/INDEX.html`
 - Uploaded resumes are stored under `uploads/resumes/`
 - SQLite DB file: `app.db` (in the project folder by default)
+
+The platform was built for the IILM University student career journey, with product and engineering contributions from **Anupam Banerjee (Frontend · Backend)**.
 
 ## Default admin (auto-seeded)
 

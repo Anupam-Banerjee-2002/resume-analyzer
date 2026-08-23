@@ -197,9 +197,25 @@
 
     footer{text-align:center;padding:24px 20px 34px;font-size:12px;color:var(--muted);border-top:1px solid var(--border);}
     footer .brand{font-family:'Playfair Display',serif;color:var(--navy);font-size:13.5px;margin-bottom:3px;}
+    .impact-strip{max-width:900px;margin:-28px auto 0;padding:0 20px;position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+    .impact-card{background:rgba(255,255,255,.96);border:1px solid rgba(191,219,254,.9);border-radius:15px;padding:16px 18px;box-shadow:0 10px 30px rgba(10,22,40,.1);}
+    .impact-card strong{display:block;color:var(--navy);font-size:13px;margin-bottom:4px;}
+    .impact-card span{display:block;color:var(--muted);font-size:11px;line-height:1.5;}
+    .student-note{display:flex;gap:12px;align-items:flex-start;background:linear-gradient(135deg,#fffbeb,#fff7ed);border:1px solid #fde68a;border-radius:15px;padding:17px 18px;}
+    .student-note-icon{font-size:22px;line-height:1;}
+    .student-note strong{display:block;color:#92400e;font-size:13px;margin-bottom:4px;}
+    .student-note span{color:#a16207;font-size:11.5px;line-height:1.55;}
+    .credits-panel{border:1px solid var(--border);border-radius:15px;background:var(--bg);padding:16px 18px;}
+    .credits-panel summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;color:var(--navy);font-size:13px;font-weight:800;}
+    .credits-panel summary::-webkit-details-marker{display:none;}
+    .credits-panel summary::after{content:'+';font-size:20px;color:var(--blue);font-weight:500;}
+    .credits-panel[open] summary::after{content:'–';}
+    .credits-panel .team-grid{margin-top:16px;}
+    .student-credit{max-width:860px;margin:0 auto 18px;padding:12px 20px;text-align:center;color:var(--muted);font-size:11px;}
+    .student-credit strong{color:var(--navy);font-weight:800;margin-right:7px;}
 
     @media(max-width:600px){
-      .team-grid{grid-template-columns:1fr 1fr;} .stats-row{grid-template-columns:1fr 1fr;}
+      .team-grid{grid-template-columns:1fr 1fr;} .stats-row{grid-template-columns:1fr 1fr;} .impact-strip{grid-template-columns:1fr;}
       .admin-grid,.dataset-grid{grid-template-columns:1fr;} nav{padding:0 16px;}
       .nav-title,.nav-badge{display:none;}
     }
@@ -294,8 +310,8 @@
 <nav>
   <div class="nav-brand">
     <div class="nav-logo">🎯</div>
-    <span class="nav-title">Smart Resume Screener</span>
-    <span class="nav-badge">ML v3</span>
+    <span class="nav-title">IILM CareerReady</span>
+    <span class="nav-badge">Student Edition</span>
   </div>
   <div class="nav-right">
     <div class="nav-tabs">
@@ -314,15 +330,21 @@
 <div class="page active" id="page-home">
   <div class="hero">
     <div class="hero-badge"><span class="hbd"></span>Machine Learning · NLP · Classification</div>
-    <h1>Intelligent Resume<br><em>Screening System</em></h1>
-    <p>Upload a resume and our ML model classifies it instantly with skills extraction, education detection, experience analysis and a composite relevance score.</p>
+    <h1>Build a resume that<br><em>gets you noticed</em></h1>
+    <p>Get a private, instant resume health check designed for IILM students. Discover your strongest career direction, skills, and next steps before you apply.</p>
     <div class="hero-chips">
       <span class="hero-chip">🐍 Python</span><span class="hero-chip">⚗️ Flask</span>
       <span class="hero-chip">🤖 Scikit-learn</span><span class="hero-chip">📊 NLP</span>
       <span class="hero-chip">🎓 IILM University</span>
     </div>
   </div>
+  <div class="impact-strip">
+    <div class="impact-card"><strong>Career direction</strong><span>See which technology role best matches your current profile.</span></div>
+    <div class="impact-card"><strong>Actionable feedback</strong><span>Review skills, education, experience, and relevance in one place.</span></div>
+    <div class="impact-card"><strong>Student-first privacy</strong><span>Your resume is used to generate your analysis and stays in your account.</span></div>
+  </div>
   <div class="main">
+    <div class="student-note"><div class="student-note-icon">💡</div><div><strong>Make every application count</strong><span>Use your result as a starting point: improve the gaps, tailor your resume to the recommended role, and speak with your placement or faculty team for guidance.</span></div></div>
     <div class="card">
       <div class="ctitle"><div class="cicon">📄</div>Step 1 — Upload Resume</div>
       <label class="upload-zone" id="uploadZone" for="fileInput">
@@ -398,6 +420,7 @@
     <div class="card">
       <div class="ctitle"><div class="cicon">👥</div>Team & Credits</div>
       <div class="team-grid">
+        <div class="tcard"><div class="avatar">A</div><div class="tname">Anupam Banerjee</div><div class="trole">Frontend · Backend</div><span class="tbadge">Product & Engineering</span></div>
         <div class="tcard"><div class="avatar">D</div><div class="tname">Divyansh Shukla</div><div class="trole">Frontend · Backend · ML</div><span class="tbadge">Model + API + UI</span></div>
         <div class="tcard"><div class="avatar">D</div><div class="tname">Dr. Lalit Dhamaniya</div><div class="trole">H.O.D (SCSE)</div><span class="tbadge">Guide</span></div>
         <div class="tcard"><div class="avatar">L</div><div class="tname">Dr. Lalita Chaudhary</div><div class="trole">Professor (SCSE)</div><span class="tbadge">Guide</span></div>
@@ -659,6 +682,7 @@
   </div>
 </div>
 
+<div class="student-credit"><strong>Product & engineering</strong><span>Anupam Banerjee · Frontend & Backend</span></div>
 <footer>
   <div class="brand">Smart Resume Screening System v3</div>
   <div>Final Year Capstone · 2025-2026 · IILM University</div>
