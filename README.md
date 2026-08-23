@@ -33,6 +33,8 @@ starts (takes a few seconds). To retrain with more/updated data:
 Keyword lists for keyword-scoring (`/keywords`) were also updated to match the new
 10 categories with relevant tech keywords per role.
 
+Recommendation confidence uses the calibrated model probability with a small, capped evidence bonus for detected skills, education, and experience. This keeps the displayed percentage useful without presenting uncertain recommendations as near-certain.
+
 ## Run
 
 ```bash

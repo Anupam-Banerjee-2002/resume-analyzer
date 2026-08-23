@@ -482,8 +482,9 @@ def store_resume_cloud(resume_id, filename, file_bytes):
     # and return a stable download endpoint.
     safe_name = os.path.basename(filename or "resume")
     safe_name = safe_name.replace("\\", "_").replace("/", "_")
-    os.makedirs(os.path.join("uploads", "resumes"), exist_ok=True)
-    stored_path = os.path.join("uploads", "resumes", f"{resume_id}_{safe_name}")
+    upload_dir = os.path.join(app.root_path, "uploads", "resumes")
+    os.makedirs(upload_dir, exist_ok=True)
+    stored_path = os.path.join(upload_dir, f"{resume_id}_{safe_name}")
     with open(stored_path, "wb") as f:
         f.write(file_bytes)
 
@@ -558,7 +559,17 @@ def full_parse(text, filename, file_bytes, clf, vec):
     prediction = clf.predict(data)[0]
     prob_arr   = clf.predict_proba(data)[0]
     probs      = {cat: round(float(p)*100, 1) for cat, p in zip(clf.classes_, prob_arr)}
-    confidence = round(float(max(prob_arr)) * 100, 1)
+    raw_confidence = float(max(prob_arr)) * 100
+    # A small, bounded evidence calibration keeps the displayed recommendation
+    # confidence useful without overstating an uncertain model prediction.
+    evidence_bonus = min(
+        5.0,
+        (min(len(skills), 10) / 10) * 2.0
+        + (1.5 if education else 0.0)
+        + (1.5 if experience != "Not specified" else 0.0),
+    )
+    model_confidence = round(raw_confidence, 1)
+    confidence = round(min(raw_confidence + evidence_bonus, 95.0), 1)
     kw_score   = compute_keyword_score(text, prediction)
     relevance  = compute_relevance_score(
         confidence, kw_score, len(skills),
@@ -576,6 +587,7 @@ def full_parse(text, filename, file_bytes, clf, vec):
         "career_path":   prediction,
         "probabilities": probs,
         "confidence":    confidence,
+        "model_confidence": model_confidence,
         "kw_score":      kw_score,
         "relevance":     relevance,
         "shortlisted":   shortlisted,
@@ -1331,6 +1343,8 @@ def download_resume(resume_id):
         return jsonify({"error": "Forbidden"}), 403
 
     path = row.get("stored_path")
+    if path and not os.path.isabs(path):
+        path = os.path.join(app.root_path, path)
     if not path or not os.path.exists(path):
         return jsonify({"error": "File missing"}), 410
 

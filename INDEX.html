@@ -262,6 +262,14 @@
     .footer-copy{color:#abc0d3;font-size:11px;line-height:1.65;}
     .footer-copy a{color:#d8efff;text-decoration:none;}
     .footer-campus{background:#071d3b;padding:0 20px 38px;border-top:1px solid rgba(255,255,255,.08);}
+    .student-greeting{position:relative;color:#ffe0a0;font-size:12px;font-weight:700;letter-spacing:.04em;margin:-10px auto 20px;}
+    .analysis-progress{display:none;margin-top:14px;padding:14px 16px;background:#f5fbff;border:1px solid #c5e5f7;border-radius:12px;}
+    .analysis-progress.show{display:block;}
+    .analysis-progress-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:9px;}
+    .analysis-stage{color:var(--blue);font-size:12px;font-weight:800;}
+    .analysis-hint{color:var(--muted);font-size:10.5px;}
+    .analysis-track{height:6px;background:#dceefa;border-radius:99px;overflow:hidden;}
+    .analysis-fill{height:100%;width:18%;background:linear-gradient(90deg,var(--gold),var(--blue));border-radius:99px;transition:width .8s ease;}
     @media(max-width:700px){.footer-grid{grid-template-columns:1fr;gap:20px;text-align:center}.footer-brand{justify-content:center}}
     @media(max-width:700px){.nav-right{gap:4px}.nav-tabs{display:none}.hero{padding-top:62px}.impact-strip{grid-template-columns:1fr;margin-top:-26px}.main{padding:0 14px}.card{padding:23px 18px}.hero-logo{width:200px}}
 
@@ -381,6 +389,7 @@
 <div class="page active" id="page-home">
   <div class="hero">
     <img class="hero-logo" src="static/iilm-university-logo.png" alt="IILM University" />
+    <div class="student-greeting" id="studentGreeting">Welcome, IILM student · Good day</div>
     <div class="hero-badge"><span class="hbd"></span>Machine Learning · NLP · Classification</div>
     <h1>Find your next<br><em>career direction</em></h1>
     <p>Upload your resume and get an AI-assisted career recommendation tailored to your skills, education, and experience—built for the IILM student journey.</p>
@@ -415,6 +424,10 @@
       <button class="btn-p" id="analyzeBtn" onclick="analyzeResume()">
         <div class="sp" id="sp"></div><span id="btnTxt">🔍 Get Career Recommendation</span>
       </button>
+      <div class="analysis-progress" id="analysisProgress" aria-live="polite">
+        <div class="analysis-progress-top"><span class="analysis-stage" id="analysisStage">Checking your file…</span><span class="analysis-hint">This usually takes a few seconds</span></div>
+        <div class="analysis-track"><div class="analysis-fill" id="analysisFill"></div></div>
+      </div>
     </div>
     <div class="alert ae" id="errBar">⚠️ <span id="errMsg">Could not connect to server.</span></div>
     <div class="alert aw" id="resumeErrBar">
@@ -747,6 +760,15 @@ let chartInst = null, bulkResults = [], adminLoggedIn = false;
 let kwDept = 'Java Developer', currentDept = '';
 let currentUser = null;
 let resPage = 1, resPageSize = 25;
+let analysisTimer = null;
+
+function updateStudentGreeting() {
+  const hour = new Date().getHours();
+  const greeting = hour >= 5 && hour < 12 ? 'Good morning' : hour >= 12 && hour < 17 ? 'Good afternoon' : hour >= 17 && hour < 21 ? 'Good evening' : 'Good night';
+  const el = document.getElementById('studentGreeting');
+  if (el) el.textContent = `Welcome, IILM student · ${greeting}`;
+}
+updateStudentGreeting();
 
 // ══ PAGE ROUTING ══════════════════════════════════════════════════════════════
 function goPage(name, btn) {
@@ -973,7 +995,15 @@ async function analyzeResume() {
   const btn = document.getElementById('analyzeBtn');
   btn.classList.add('loading');
   document.getElementById('sp').style.display = 'block';
-  document.getElementById('btnTxt').textContent = 'Analyzing…';
+  document.getElementById('btnTxt').textContent = 'Working on your recommendation…';
+  const progress = document.getElementById('analysisProgress');
+  const stage = document.getElementById('analysisStage');
+  const fill = document.getElementById('analysisFill');
+  const stages = [['Checking your file…', 22], ['Analyzing skills and experience…', 55], ['Almost there — matching career paths…', 82]];
+  let stageIndex = 0;
+  progress.classList.add('show'); stage.textContent = stages[0][0]; fill.style.width = stages[0][1] + '%';
+  clearInterval(analysisTimer);
+  analysisTimer = setInterval(() => { stageIndex = Math.min(stageIndex + 1, stages.length - 1); stage.textContent = stages[stageIndex][0]; fill.style.width = stages[stageIndex][1] + '%'; }, 900);
   document.getElementById('result-section').classList.remove('show');
   ['errBar','resumeErrBar'].forEach(id => document.getElementById(id).classList.remove('show'));
   try {
@@ -997,6 +1027,9 @@ async function analyzeResume() {
     document.getElementById('errMsg').textContent = `Cannot reach server. Make sure Flask is running at ${API}`;
     document.getElementById('errBar').classList.add('show');
   } finally {
+    clearInterval(analysisTimer);
+    stage.textContent = 'Almost there — preparing your result…'; fill.style.width = '100%';
+    setTimeout(() => progress.classList.remove('show'), 700);
     btn.classList.remove('loading');
     document.getElementById('sp').style.display = 'none';
     document.getElementById('btnTxt').textContent = '🔍 Get Career Recommendation';
@@ -1156,6 +1189,25 @@ function renderBulk(data) {
   });
   document.getElementById('bulkResult').style.display = 'block';
 }
+async function downloadResume(url) {
+  try {
+    const res = await fetch(url, {credentials:'include'});
+    if (!res.ok) throw new Error(res.status === 401 ? 'Please login to download this resume.' : `Download failed (${res.status}).`);
+    const blob = await res.blob();
+    const disposition = res.headers.get('content-disposition') || '';
+    const match = disposition.match(/filename[^;=]*=((['"]).*?\2|[^;]*)/i);
+    const filename = match ? match[1].replace(/['"]/g, '') : 'IILM-career-recommendation-resume';
+    const objectUrl = URL.createObjectURL(blob);
+    const anchor = document.createElement('a'); anchor.href = objectUrl; anchor.download = filename;
+    document.body.appendChild(anchor); anchor.click(); anchor.remove(); URL.revokeObjectURL(objectUrl);
+  } catch (error) { alert(error.message || 'Unable to download the resume.'); }
+}
+
+document.addEventListener('click', event => {
+  const link = event.target.closest('a');
+  if (link && /\/resumes\/[^/]+\/download/.test(link.href)) { event.preventDefault(); downloadResume(link.href); }
+});
+
 function downloadBulkCSV() {
   if (!bulkResults.length) return;
   const lines = ['File,Candidate,Department,Relevance,ML Conf,KW Score,Skills,Education,Experience,Shortlisted,Cloud Link'];
