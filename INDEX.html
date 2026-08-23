@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Smart Resume Screener – IILM University</title>
+  <title>IILM CareerReady | Student Resume Analyzer</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
@@ -213,6 +213,47 @@
     .credits-panel .team-grid{margin-top:16px;}
     .student-credit{max-width:860px;margin:0 auto 18px;padding:12px 20px;text-align:center;color:var(--muted);font-size:11px;}
     .student-credit strong{color:var(--navy);font-weight:800;margin-right:7px;}
+    /* IILM University visual system */
+    :root{--navy:#071d3b;--blue:#0066b3;--blue-mid:#1687d9;--blue-lite:#eaf5fc;--gold:#e6a532;--gold-lt:#fff7e3;--text:#12233d;--muted:#63748b;--border:#d9e4ef;--bg:#f4f8fc;--shadow:0 14px 40px rgba(7,29,59,.1);--radius:20px;}
+    body{background:radial-gradient(circle at 85% 4%,rgba(230,165,50,.12),transparent 28%),#f4f8fc;color:var(--text);}
+    nav{height:76px;padding:0 clamp(18px,5vw,72px);background:rgba(7,29,59,.97);border-bottom:3px solid var(--gold);}
+    .nav-brand{gap:14px;}
+    .nav-logo{width:46px;height:46px;border-radius:0;background:transparent url('static/iilm-university-logo.png') center/contain no-repeat;font-size:0;}
+    .nav-title{font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;letter-spacing:.03em;}
+    .nav-badge{background:rgba(230,165,50,.16);color:#ffd77b;border-color:rgba(230,165,50,.42);}
+    .nav-tabs{gap:6px;}
+    .nav-tab{font-size:12px;padding:8px 13px;border-radius:9px;}
+    .nav-tab.active,.nav-tab:hover{background:rgba(255,255,255,.13);color:#fff;}
+    .nav-tab.active{color:#7dc7f5;}
+    .hero{background:linear-gradient(125deg,#061b38 0%,#0b3564 52%,#0078bd 100%);padding:84px 24px 124px;}
+    .hero::after{content:'';position:absolute;width:360px;height:360px;right:-100px;top:-170px;border:1px solid rgba(255,255,255,.16);border-radius:50%;box-shadow:0 0 0 40px rgba(255,255,255,.03),0 0 0 80px rgba(255,255,255,.025);}
+    .hero-logo{width:min(250px,65vw);height:auto;margin:0 auto 28px;position:relative;filter:drop-shadow(0 8px 22px rgba(0,0,0,.2));}
+    .hero-badge{background:rgba(255,255,255,.11);border-color:rgba(255,255,255,.25);color:#d8efff;}
+    .hero h1{font-size:clamp(34px,5vw,64px);letter-spacing:-1px;}
+    .hero h1 em{color:#ffd77b;}
+    .hero p{max-width:600px;font-size:16px;color:#e3f3ff;opacity:.86;}
+    .hero-chip{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:#d9efff;padding:6px 13px;}
+    .impact-strip{max-width:1060px;margin:-42px auto 0;grid-template-columns:repeat(4,1fr);}
+    .impact-card{border:1px solid #d6e8f5;box-shadow:0 12px 34px rgba(7,29,59,.12);padding:19px 20px;}
+    .impact-card strong{font-size:13px;color:var(--blue);}
+    .main{max-width:1060px;margin:-1px auto 72px;gap:24px;}
+    .card{border-radius:22px;box-shadow:var(--shadow);padding:32px;border-color:#dbe7f1;}
+    .ctitle{color:var(--blue);font-size:11px;}
+    .cicon{background:var(--blue-lite);color:var(--blue);}
+    .upload-zone{border-color:#a8d5f1;background:linear-gradient(145deg,#f1f9fe,#e5f3fb);padding:52px 22px;}
+    .upload-zone:hover,.upload-zone.drag{border-color:var(--blue);background:#dff1fc;}
+    .uicon{border-color:#b8ddf3;box-shadow:0 5px 17px rgba(0,102,179,.14);}
+    .btn-p{background:linear-gradient(135deg,#0076bd,#071d3b);box-shadow:0 7px 18px rgba(0,102,179,.18);}
+    .btn-p:hover{box-shadow:0 12px 28px rgba(0,102,179,.3);}
+    .student-note{background:linear-gradient(135deg,#fffaf0,#fff);border-color:#f0d38e;box-shadow:0 7px 22px rgba(230,165,50,.08);}
+    .student-note strong{color:#946315;}
+    .result-hero{background:linear-gradient(135deg,#edf8ff,#f8fcff);border-color:#b9def3;}
+    .rdept{color:var(--navy);}
+    footer{background:#071d3b;color:#a9bfd3;border:0;padding:34px 20px 40px;}
+    footer .brand{color:#fff;}
+    .student-credit{color:#7891aa;}
+    .student-credit strong{color:#e6a532;}
+    @media(max-width:700px){.nav-right{gap:4px}.nav-tabs{display:none}.hero{padding-top:62px}.impact-strip{grid-template-columns:1fr;margin-top:-26px}.main{padding:0 14px}.card{padding:23px 18px}.hero-logo{width:200px}}
 
     @media(max-width:600px){
       .team-grid{grid-template-columns:1fr 1fr;} .stats-row{grid-template-columns:1fr 1fr;} .impact-strip{grid-template-columns:1fr;}
@@ -329,6 +370,7 @@
 ══════════════════════════════════════════════════════════ -->
 <div class="page active" id="page-home">
   <div class="hero">
+    <img class="hero-logo" src="static/iilm-university-logo.png" alt="IILM University" />
     <div class="hero-badge"><span class="hbd"></span>Machine Learning · NLP · Classification</div>
     <h1>Build a resume that<br><em>gets you noticed</em></h1>
     <p>Get a private, instant resume health check designed for IILM students. Discover your strongest career direction, skills, and next steps before you apply.</p>
@@ -342,6 +384,7 @@
     <div class="impact-card"><strong>Career direction</strong><span>See which technology role best matches your current profile.</span></div>
     <div class="impact-card"><strong>Actionable feedback</strong><span>Review skills, education, experience, and relevance in one place.</span></div>
     <div class="impact-card"><strong>Student-first privacy</strong><span>Your resume is used to generate your analysis and stays in your account.</span></div>
+    <div class="impact-card"><strong>IILM University</strong><span>Gurugram · Greater Noida · Lodhi Road</span><a href="https://iilm.edu/" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;color:var(--blue);font-size:11px;font-weight:800;text-decoration:none;">Explore iilm.edu ↗</a></div>
   </div>
   <div class="main">
     <div class="student-note"><div class="student-note-icon">💡</div><div><strong>Make every application count</strong><span>Use your result as a starting point: improve the gaps, tailor your resume to the recommended role, and speak with your placement or faculty team for guidance.</span></div></div>
@@ -685,7 +728,7 @@
 <div class="student-credit"><strong>Product & engineering</strong><span>Anupam Banerjee · Frontend & Backend</span></div>
 <footer>
   <div class="brand">Smart Resume Screening System v3</div>
-  <div>Final Year Capstone · 2025-2026 · IILM University</div>
+  <div>Student career support platform · IILM University · 2025–2026</div>
 </footer>
 
 <script>

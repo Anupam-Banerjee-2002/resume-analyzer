@@ -46,6 +46,8 @@ python app.py
 
 The platform was built for the IILM University student career journey, with product and engineering contributions from **Anupam Banerjee (Frontend · Backend)**.
 
+Institutional context and the logo used in the interface are sourced from the official [IILM University website](https://iilm.edu/). The interface references IILM’s Gurugram, Greater Noida, and Lodhi Road locations and links students back to the university site for official information.
+
 ## Default admin (auto-seeded)
 
 If the DB is empty on first run, one ADMIN user is created:
