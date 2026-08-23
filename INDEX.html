@@ -262,6 +262,16 @@
     .footer-copy{color:#abc0d3;font-size:11px;line-height:1.65;}
     .footer-copy a{color:#d8efff;text-decoration:none;}
     .footer-campus{background:#071d3b;padding:0 20px 38px;border-top:1px solid rgba(255,255,255,.08);}
+    .campaign-bar{background:#e6a532;color:#071d3b;min-height:42px;padding:9px clamp(18px,5vw,72px);display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-size:11.5px;font-weight:700;}
+    .campaign-bar strong{font-size:12px;letter-spacing:.04em;}
+    .campaign-bar a{color:#071d3b;border-bottom:1px solid rgba(7,29,59,.45);text-decoration:none;font-weight:800;}
+    .marketing-rail{max-width:1060px;margin:28px auto 0;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .marketing-card{position:relative;overflow:hidden;background:#fff;border:1px solid #d7e6f1;border-radius:18px;padding:21px 20px;box-shadow:0 8px 24px rgba(7,29,59,.07);}
+    .marketing-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--gold),var(--blue));}
+    .marketing-kicker{color:var(--blue);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px;}
+    .marketing-card h3{color:var(--navy);font-size:17px;line-height:1.2;margin-bottom:7px;}
+    .marketing-card p{color:var(--muted);font-size:11.5px;line-height:1.55;margin-bottom:12px;}
+    .marketing-card a{color:var(--blue);font-size:11px;font-weight:800;text-decoration:none;}
     .student-greeting{position:relative;color:#ffe0a0;font-size:12px;font-weight:700;letter-spacing:.04em;margin:-10px auto 20px;}
     .analysis-progress{display:none;margin-top:14px;padding:14px 16px;background:#f5fbff;border:1px solid #c5e5f7;border-radius:12px;}
     .analysis-progress.show{display:block;}
@@ -270,7 +280,7 @@
     .analysis-hint{color:var(--muted);font-size:10.5px;}
     .analysis-track{height:6px;background:#dceefa;border-radius:99px;overflow:hidden;}
     .analysis-fill{height:100%;width:18%;background:linear-gradient(90deg,var(--gold),var(--blue));border-radius:99px;transition:width .8s ease;}
-    @media(max-width:700px){.footer-grid{grid-template-columns:1fr;gap:20px;text-align:center}.footer-brand{justify-content:center}}
+    @media(max-width:700px){.footer-grid{grid-template-columns:1fr;gap:20px;text-align:center}.footer-brand{justify-content:center}.marketing-rail{grid-template-columns:1fr;margin-top:20px}}
     @media(max-width:700px){.nav-right{gap:4px}.nav-tabs{display:none}.hero{padding-top:62px}.impact-strip{grid-template-columns:1fr;margin-top:-26px}.main{padding:0 14px}.card{padding:23px 18px}.hero-logo{width:200px}}
 
     @media(max-width:600px){
@@ -383,6 +393,8 @@
   </div>
 </nav>
 
+<div class="campaign-bar"><strong>Admissions 2026 are open at IILM University</strong><span>Start your future-ready journey with purpose.</span><a href="https://iilm.edu/greater-noida/programs/" target="_blank" rel="noopener">Explore programmes ↗</a></div>
+
 <!-- ══════════════════════════════════════════════════════════
      PAGE: HOME
 ══════════════════════════════════════════════════════════ -->
@@ -404,6 +416,11 @@
     <div class="impact-card"><strong>Actionable feedback</strong><span>Review skills, education, experience, and relevance in one place.</span></div>
     <div class="impact-card"><strong>Student-first privacy</strong><span>Your resume is used to generate your analysis and stays in your account.</span></div>
     <div class="impact-card"><strong>IILM University</strong><span>Gurugram · Greater Noida · Lodhi Road</span><a href="https://iilm.edu/" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;color:var(--blue);font-size:11px;font-weight:800;text-decoration:none;">Explore iilm.edu ↗</a></div>
+  </div>
+  <div class="marketing-rail">
+    <article class="marketing-card"><div class="marketing-kicker">Admissions 2026</div><h3>Your next chapter starts here.</h3><p>Explore programmes at IILM University Greater Noida and connect your interests with a future-ready learning journey.</p><a href="https://iilm.edu/greater-noida/programs/" target="_blank" rel="noopener">Explore programmes ↗</a></article>
+    <article class="marketing-card"><div class="marketing-kicker">Deeksharambh · Orientation</div><h3>Begin with purpose.</h3><p>Join a community built around welcoming new beginnings, meaningful conversations, and learning with purpose.</p><a href="https://www.linkedin.com/school/iilm-university-greater-noida/" target="_blank" rel="noopener">See IILM stories ↗</a></article>
+    <article class="marketing-card"><div class="marketing-kicker">Future-ready education</div><h3>Think boldly. Build boldly.</h3><p>AI-integrated learning, innovation, industry connect, and a vibrant campus ecosystem shape the IILM experience.</p><a href="https://iilm.edu/greater-noida/about/" target="_blank" rel="noopener">Discover IILM Greater Noida ↗</a></article>
   </div>
   <div class="main">
     <div class="student-note"><div class="student-note-icon">💡</div><div><strong>Make every application count</strong><span>Use your result as a starting point: improve the gaps, tailor your resume to the recommended role, and speak with your placement or faculty team for guidance.</span></div></div>
@@ -999,16 +1016,17 @@ async function analyzeResume() {
   const progress = document.getElementById('analysisProgress');
   const stage = document.getElementById('analysisStage');
   const fill = document.getElementById('analysisFill');
-  const stages = [['Checking your file…', 22], ['Analyzing skills and experience…', 55], ['Almost there — matching career paths…', 82]];
+  const stages = [['Checking your file…', 18], ['Analyzing skills and experience…', 44], ['Comparing your profile with career paths…', 68], ['Almost there — preparing your recommendation…', 88]];
   let stageIndex = 0;
   progress.classList.add('show'); stage.textContent = stages[0][0]; fill.style.width = stages[0][1] + '%';
   clearInterval(analysisTimer);
-  analysisTimer = setInterval(() => { stageIndex = Math.min(stageIndex + 1, stages.length - 1); stage.textContent = stages[stageIndex][0]; fill.style.width = stages[stageIndex][1] + '%'; }, 900);
+  analysisTimer = setInterval(() => { stageIndex = Math.min(stageIndex + 1, stages.length - 1); stage.textContent = stages[stageIndex][0]; fill.style.width = stages[stageIndex][1] + '%'; }, 1500);
   document.getElementById('result-section').classList.remove('show');
   ['errBar','resumeErrBar'].forEach(id => document.getElementById(id).classList.remove('show'));
   try {
     const fd = new FormData(); fd.append('resume', fileInput.files[0]);
-    const res  = await fetch(`${API}/predict`, {method:'POST', credentials:'include', body:fd});
+    const request = fetch(`${API}/predict`, {method:'POST', credentials:'include', body:fd});
+    const [res] = await Promise.all([request, new Promise(resolve => setTimeout(resolve, 6000))]);
     const data = await res.json();
     if (res.status === 401) {
       document.getElementById('errMsg').textContent = 'Please login first.';
