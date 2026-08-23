@@ -781,7 +781,7 @@ let analysisTimer = null;
 
 function updateStudentGreeting() {
   const hour = new Date().getHours();
-  const greeting = hour >= 5 && hour < 12 ? 'Good morning' : hour >= 12 && hour < 17 ? 'Good afternoon' : hour >= 17 && hour < 21 ? 'Good evening' : 'Good night';
+  const greeting = hour >= 5 && hour < 12 ? 'Good morning' : hour >= 12 && hour < 17 ? 'Good afternoon' : 'Good evening';
   const el = document.getElementById('studentGreeting');
   if (el) el.textContent = `Welcome, IILM student · ${greeting}`;
 }
