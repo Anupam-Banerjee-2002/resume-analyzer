@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IILM CareerReady | Student Resume Analyzer</title>
+  <title>IILM Career Compass | Career Recommendation System</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
@@ -253,6 +253,16 @@
     footer .brand{color:#fff;}
     .student-credit{color:#7891aa;}
     .student-credit strong{color:#e6a532;}
+    .student-credit{display:none;}
+    .page#page-home .main > .card:last-child{display:none;}
+    .footer-grid{max-width:1060px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:28px;text-align:left;}
+    .footer-brand{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+    .footer-brand img{width:126px;height:auto;}
+    .footer-heading{color:#e6a532;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:9px;}
+    .footer-copy{color:#abc0d3;font-size:11px;line-height:1.65;}
+    .footer-copy a{color:#d8efff;text-decoration:none;}
+    .footer-campus{background:#071d3b;padding:0 20px 38px;border-top:1px solid rgba(255,255,255,.08);}
+    @media(max-width:700px){.footer-grid{grid-template-columns:1fr;gap:20px;text-align:center}.footer-brand{justify-content:center}}
     @media(max-width:700px){.nav-right{gap:4px}.nav-tabs{display:none}.hero{padding-top:62px}.impact-strip{grid-template-columns:1fr;margin-top:-26px}.main{padding:0 14px}.card{padding:23px 18px}.hero-logo{width:200px}}
 
     @media(max-width:600px){
@@ -351,7 +361,7 @@
 <nav>
   <div class="nav-brand">
     <div class="nav-logo">🎯</div>
-    <span class="nav-title">IILM CareerReady</span>
+    <span class="nav-title">IILM Career Compass</span>
     <span class="nav-badge">Student Edition</span>
   </div>
   <div class="nav-right">
@@ -372,8 +382,8 @@
   <div class="hero">
     <img class="hero-logo" src="static/iilm-university-logo.png" alt="IILM University" />
     <div class="hero-badge"><span class="hbd"></span>Machine Learning · NLP · Classification</div>
-    <h1>Build a resume that<br><em>gets you noticed</em></h1>
-    <p>Get a private, instant resume health check designed for IILM students. Discover your strongest career direction, skills, and next steps before you apply.</p>
+    <h1>Find your next<br><em>career direction</em></h1>
+    <p>Upload your resume and get an AI-assisted career recommendation tailored to your skills, education, and experience—built for the IILM student journey.</p>
     <div class="hero-chips">
       <span class="hero-chip">🐍 Python</span><span class="hero-chip">⚗️ Flask</span>
       <span class="hero-chip">🤖 Scikit-learn</span><span class="hero-chip">📊 NLP</span>
@@ -403,7 +413,7 @@
         <button class="rbtn" onclick="removeFile()">✕ Remove</button>
       </div>
       <button class="btn-p" id="analyzeBtn" onclick="analyzeResume()">
-        <div class="sp" id="sp"></div><span id="btnTxt">🔍 Analyze Resume</span>
+        <div class="sp" id="sp"></div><span id="btnTxt">🔍 Get Career Recommendation</span>
       </button>
     </div>
     <div class="alert ae" id="errBar">⚠️ <span id="errMsg">Could not connect to server.</span></div>
@@ -416,11 +426,11 @@
     </div>
     <div id="result-section">
       <div class="card">
-        <div class="ctitle"><div class="cicon">✅</div>Step 2 — Screening Result</div>
+        <div class="ctitle"><div class="cicon">✅</div>Career Recommendation</div>
         <div class="result-hero">
           <div class="remoji" id="rEmoji">🏢</div>
           <div style="flex:1;">
-            <div class="rmeta">Recommended Department</div>
+            <div class="rmeta">Recommended Career Path</div>
             <div class="rdept" id="rDept">—</div>
             <div style="font-size:11.5px;color:var(--muted);margin-top:3px;" id="rCandidate">—</div>
           </div>
@@ -460,15 +470,6 @@
         </div>
       </div>
     </div>
-    <div class="card">
-      <div class="ctitle"><div class="cicon">👥</div>Team & Credits</div>
-      <div class="team-grid">
-        <div class="tcard"><div class="avatar">A</div><div class="tname">Anupam Banerjee</div><div class="trole">Frontend · Backend</div><span class="tbadge">Product & Engineering</span></div>
-        <div class="tcard"><div class="avatar">D</div><div class="tname">Divyansh Shukla</div><div class="trole">Frontend · Backend · ML</div><span class="tbadge">Model + API + UI</span></div>
-        <div class="tcard"><div class="avatar">D</div><div class="tname">Dr. Lalit Dhamaniya</div><div class="trole">H.O.D (SCSE)</div><span class="tbadge">Guide</span></div>
-        <div class="tcard"><div class="avatar">L</div><div class="tname">Dr. Lalita Chaudhary</div><div class="trole">Professor (SCSE)</div><span class="tbadge">Guide</span></div>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -478,7 +479,7 @@
 <div class="page" id="page-bulk">
   <div class="hero hero-sm">
     <div class="hero-badge"><span class="hbd"></span>Bulk Processing · Up to 1000 Resumes</div>
-    <h1>Bulk Resume<br><em>Screening</em></h1>
+    <h1>Bulk Career<br><em>Recommendations</em></h1>
     <p>Upload multiple resumes, a ZIP archive, or select an entire folder. Every resume is fully parsed and auto-shortlisted.</p>
   </div>
   <div class="main">
@@ -725,11 +726,16 @@
   </div>
 </div>
 
-<div class="student-credit"><strong>Product & engineering</strong><span>Anupam Banerjee · Frontend & Backend</span></div>
 <footer>
-  <div class="brand">Smart Resume Screening System v3</div>
+  <div class="brand">IILM Career Recommendation System</div>
   <div>Student career support platform · IILM University · 2025–2026</div>
 </footer>
+
+<div class="footer-campus"><div class="footer-grid">
+  <div><div class="footer-brand"><img src="static/iilm-university-logo.png" alt="IILM University" /></div><div class="footer-copy">IILM Career Recommendation System<br />A student-focused career direction platform for the IILM community.</div></div>
+  <div><div class="footer-heading">Greater Noida Campus</div><div class="footer-copy">Plot No. 16–18, Knowledge Park II,<br />Greater Noida, Uttar Pradesh – 201306</div></div>
+  <div><div class="footer-heading">Contact</div><div class="footer-copy">Admissions: <a href="mailto:admissions.gn@iilm.edu">admissions.gn@iilm.edu</a><br />Undergraduate: <a href="tel:08065905224">08065905224</a><br />Engineering: <a href="tel:08065905220">08065905220</a><br />Visit <a href="https://iilm.edu/contact/" target="_blank" rel="noopener">iilm.edu/contact ↗</a></div></div>
+</div></div>
 
 <script>
 // Important: use the SAME hostname as the frontend to ensure session cookies are sent.
@@ -993,7 +999,7 @@ async function analyzeResume() {
   } finally {
     btn.classList.remove('loading');
     document.getElementById('sp').style.display = 'none';
-    document.getElementById('btnTxt').textContent = '🔍 Analyze Resume';
+    document.getElementById('btnTxt').textContent = '🔍 Get Career Recommendation';
   }
 }
 

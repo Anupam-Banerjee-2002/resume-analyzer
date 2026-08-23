@@ -1,6 +1,6 @@
-# IILM CareerReady — Resume Analyzer
+# IILM Career Compass — Career Recommendation System
 
-IILM CareerReady is a student-focused resume analysis platform for IILM University. Students can upload a PDF or DOCX resume to receive career-direction guidance, extracted skills, education and experience insights, and a relevance score. The Flask backend also provides role-based tools for HR, HOD, and ADMIN users.
+IILM Career Compass is a student-focused career recommendation platform for IILM University. Students upload a PDF or DOCX resume to receive a recommended technology career path, extracted skills, education and experience insights, and a relevance score. The Flask backend also provides role-based tools for HR, HOD, and ADMIN users.
 
 ## Custom model (this build)
 

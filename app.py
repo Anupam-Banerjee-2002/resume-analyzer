@@ -1,5 +1,5 @@
 """
-Smart Resume Screening System — Flask Backend v3
+IILM Career Recommendation System — Flask Backend v4
 IILM University | Final Year Capstone 2025-2026
 All 10 Improvements + Admin Fix + ZIP/Folder + Excel Hyperlinks + 95% Accuracy
 """
@@ -277,6 +277,7 @@ def _resume_row_to_payload(row):
         "file": row.get("original_filename"),
         "name": row.get("candidate_name") or "Unknown Candidate",
         "department": row.get("predicted_department"),
+        "career_path": row.get("predicted_department"),
         "probabilities": probs,
         "confidence": row.get("confidence"),
         "kw_score": row.get("kw_score"),
@@ -572,6 +573,7 @@ def full_parse(text, filename, file_bytes, clf, vec):
         "file":          filename,
         "name":          candidate,
         "department":    prediction,
+        "career_path":   prediction,
         "probabilities": probs,
         "confidence":    confidence,
         "kw_score":      kw_score,
